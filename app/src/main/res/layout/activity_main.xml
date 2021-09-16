@@ -14,13 +14,64 @@
         android:id="@+id/GamePanel"
         android:layout_width="250dp"
         android:layout_height="500dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064">
+        app:layout_constraintVertical_bias="0.069">
 
     </android.support.v7.widget.GridLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="95dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toEndOf="@+id/GamePanel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="82dp"
+            android:layout_height="88dp"
+            android:background="#c7f9cc"
+            android:backgroundTint="#c7f9cc"
+            android:elevation="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <android.support.v7.widget.GridLayout
+                    android:id="@+id/ActualFigure"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.v7.widget.GridLayout>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bajar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bajar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
