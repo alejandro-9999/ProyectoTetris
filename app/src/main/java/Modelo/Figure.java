@@ -11,6 +11,8 @@ public class Figure {
     int FigureWidth;
     int FigureHeight;
     Context context;
+    int stoped_time = 0;
+
 
     public Quadrate[][] getFrames() {
         return Frames;
@@ -37,6 +39,7 @@ public class Figure {
     }
 
     public Figure(String borderColor, String backgroundColor) {
+        stoped_time = 0;
         BorderColor = borderColor;
         BackgroundColor = backgroundColor;
 
@@ -119,5 +122,13 @@ public class Figure {
 
             initial_y++;
         }
+    }
+
+    public int getStoped_time() {
+        return stoped_time;
+    }
+
+    public void setStoped_time(int stoped_time) {
+        this.stoped_time = stoped_time;
     }
 }

@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout GamePanelView ;
     private GridLayout ActualFigure ;
     private Button Bajar;
+    private Button Derecha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         GamePanelView =  (GridLayout) findViewById(R.id.GamePanel);
         ActualFigure =  (GridLayout) findViewById(R.id.ActualFigure);
         Bajar = (Button) findViewById(R.id.bajar);
-        GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar);
+        Derecha = (Button) findViewById(R.id.bdercha);
+        GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar,Derecha);
 
     }
 }
