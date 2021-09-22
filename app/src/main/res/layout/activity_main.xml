@@ -67,24 +67,34 @@
             android:id="@+id/bajar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="bajar"
             app:layout_constraintBottom_toTopOf="@+id/bdercha"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.985" />
+            app:layout_constraintVertical_bias="0.985"
+            tools:text="bajar" />
 
         <Button
             android:id="@+id/bdercha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bizquierda"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Derecha" />
+
+        <Button
+            android:id="@+id/bizquierda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="176dp"
-            android:text="-->"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Izquierda" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

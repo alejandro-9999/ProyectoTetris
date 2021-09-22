@@ -11,5 +11,7 @@ public class Figure_Quadrate extends  Figure{
                 {1,1}
         };
         GenerateFigure();
+
+
     }
 }
