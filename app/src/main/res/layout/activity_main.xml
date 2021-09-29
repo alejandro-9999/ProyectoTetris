@@ -64,7 +64,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/bajar"
+            android:id="@+id/rotar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/bdercha"
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.985"
-            tools:text="bajar" />
+            tools:text="rotar" />
 
         <Button
             android:id="@+id/bdercha"

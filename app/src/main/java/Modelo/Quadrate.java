@@ -49,6 +49,14 @@ public class Quadrate extends View {
 
     }
 
+    public Quadrate(String backgroundColor, String borderColor,Context context) {
+        super(context);
+        BackgroundColor = backgroundColor;
+        BorderColor = borderColor;
+
+
+    }
+
 
     public void  setFill(String backgroundColor, String borderColor){
         this.figura = new GradientDrawable();

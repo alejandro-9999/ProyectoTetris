@@ -24,25 +24,25 @@ public class HiloFigura extends  Thread{
         Derecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               figure.Derecha(Grid,figure,ActualFigure);
+               figure.Derecha(Grid,figure);
 
             }
         });
         Izquierda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                figure.Izquierda(Grid,figure,ActualFigure);
+                figure.Izquierda(Grid,figure);
 
             }
         });
 
         while(true){
             if(figure.getStoped_time() < 2 ) {
-                figure.Bajar(Grid, figure, ActualFigure);
+                figure.Bajar(Grid, figure);
             }else{
                 figure = null;
-                figure = new Figure_L(ActualFigure.getContext(),"#f48c06","#ff9e00");
-                LoadActualFigure(ActualFigure,new Figure_L(ActualFigure.getContext(),"#f48c06","#ff9e00"));
+                figure = new Figure_L(ActualFigure.getContext());
+                LoadActualFigure(ActualFigure,figure);
             }
             try {
                 Thread.sleep(550);

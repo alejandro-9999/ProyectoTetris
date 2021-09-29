@@ -5,23 +5,29 @@ import android.support.v7.widget.GridLayout;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Random;
+
 public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
     Figure figure;
     Quadrate [][] Grid;
     GridLayout ActualFigure;
     Button Derecha;
     Button Izquierda;
+    Button Rotar;
 
-    public FigureTask(Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda) {
+    public FigureTask(Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda,Button rotar) {
         this.figure = figure;
         Grid = grid;
         ActualFigure = actualFigure;
         Derecha = derecha;
         Izquierda = izquierda;
+        Rotar = rotar;
     }
 
     @Override
     protected void onPreExecute() {
+        figure = null;
+        figure = RandomFigure();
         LoadActualFigure(ActualFigure,figure);
     }
 
@@ -31,27 +37,37 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
         Derecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                figure.Derecha(Grid,figure,ActualFigure);
+                figure.Derecha(Grid,figure);
 
             }
         });
         Izquierda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                figure.Izquierda(Grid,figure,ActualFigure);
-
+                figure.Izquierda(Grid,figure);
+            }
+        });
+        Rotar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                figure.Rotar90(Grid,figure);
+                System.out.println("ESTA ROTANDO");
             }
         });
 
         while(true){
             if(figure.getStoped_time() < 2 ) {
-                figure.Bajar(Grid, figure, ActualFigure);
+                figure.Bajar(Grid, figure);
             }else{
+                if(figure.ChocaAbajo(figure,Grid)){
+                    publishProgress(true);
+                }else{
+                    figure.setStoped_time(0);
+                }
 
-                publishProgress(true);
             }
             try {
-                Thread.sleep(550);
+                Thread.sleep(350);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -61,12 +77,9 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
     @Override
     protected void onProgressUpdate(Boolean... values) {
 
-
         figure = null;
-
-
-        figure = new Figure_L(ActualFigure.getContext(),"#f48c06","#ff9e00");
-        LoadActualFigure(ActualFigure,new Figure_L(ActualFigure.getContext(),"#f48c06","#ff9e00"));
+        figure = RandomFigure();
+        LoadActualFigure(ActualFigure,figure);
     }
 
     public Quadrate[][] LoadActualFigure(GridLayout ActualFigure, Figure figure){
@@ -104,5 +117,21 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
         }
 
         return  ActualGrid;
+    }
+
+
+    public Figure RandomFigure(){
+        Random r = new Random();
+        int x = r.nextInt(7)+1;
+        switch (x){
+            case 1: return new Figure_I(ActualFigure.getContext());
+            case 2: return new Figure_J(ActualFigure.getContext());
+            case 3: return new Figure_L(ActualFigure.getContext());
+            case 4: return new Figure_O(ActualFigure.getContext());
+            case 5: return new Figure_S(ActualFigure.getContext());
+            case 6: return new Figure_T(ActualFigure.getContext());
+            case 7: return new Figure_Z(ActualFigure.getContext());
+        }
+        return new Figure_I(ActualFigure.getContext());
     }
 }
