@@ -231,7 +231,7 @@ public class Figure {
             if (!ChocaAbajo(figure, Grid)) {
                 figure.setStoped_time(0);
                 clearPastMovement(Grid,figure);
-
+                clearPastMovement(Grid,figure);
                 for (int i = 0; i < figure.getFrames().length; i++) {
                     for (int j = 0; j < figure.getFrames()[0].length; j++) {
                         figure.getFrames()[i][j].setPos_y(figure.getFrames()[i][j].getPos_y() + 1);

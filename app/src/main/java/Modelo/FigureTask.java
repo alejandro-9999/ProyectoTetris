@@ -3,10 +3,12 @@ package Modelo;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.IntegerRes;
 import android.support.v7.widget.GridLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -19,15 +21,22 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
     Button Izquierda;
     Button Rotar;
     Context context;
+    Button button_reset;
+    TextView puntaje;
     private float x2,x1,y2,y1;
 
-    public FigureTask(Context context,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar) {
+    int total;
+    public FigureTask(Context context,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total) {
+        this.total = total;
+        this.puntaje = puntaje;
         this.figure = figure;
         Grid = grid;
         ActualFigure = actualFigure;
         Derecha = derecha;
         Izquierda = izquierda;
         Rotar = rotar;
+        this.button_reset = button_reset;
+
         this.context = context;
     }
     private void soltarPantalla(float x, float y) {
@@ -134,28 +143,53 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
             if(figure.getStoped_time() < 2 ) {
                 figure.Bajar(Grid, figure);
             }else{
-                if(figure.ChocaAbajo(figure,Grid)){
-                    publishProgress(true);
-                }else{
-                    figure.setStoped_time(0);
+                if(validar_perdio()){
+                    publishProgress(false);
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else
+                {
+                    if(figure.ChocaAbajo(figure,Grid)){
+                        publishProgress(true);
+                    }else{
+                        figure.setStoped_time(0);
+                    }
                 }
 
             }
             try {
-                Thread.sleep(150);
+                Thread.sleep(250);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
         }
 
     }
+    public boolean validar_perdio(){
+        for (int x = 0; x < Grid[0].length; x++) {
+            if(Grid[0][x].isFill()){
+                return  true;
+            }
+        }
+        return false;
+    }
+
+
 
     @Override
     protected void onProgressUpdate(Boolean... values) {
 
+        if(values[0] == false){
+            Toast toast = Toast.makeText(context, "USTED PEDIO", Toast.LENGTH_SHORT);
+            toast.show();
+        }
         validate_points(Grid);
         figure = null;
         figure = RandomFigure();
+
         LoadActualFigure(ActualFigure,figure);
     }
 
@@ -245,6 +279,9 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
         for (int j = 0; j < grid[0].length; j++) {
             if(!grid[i][j].isFill()) return  false;
         }
+        total += 1;
+        puntaje.setText(""+total);
         return true;
     }
-}
+
+   }
