@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Derecha = (Button) findViewById(R.id.bdercha);
         Izquierda = (Button) findViewById(R.id.bizquierda);
         GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar,Derecha,Izquierda);
-        FigureTask figureTask = new FigureTask(new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar);
+        FigureTask figureTask = new FigureTask(this,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar);
 
         figureTask.execute(true);
 

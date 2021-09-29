@@ -48,6 +48,9 @@ public class Quadrate extends View {
         this.pos_y = pos_y;
 
     }
+    public Quadrate(Context context) {
+        super(context);
+    };
 
     public Quadrate(String backgroundColor, String borderColor,Context context) {
         super(context);
@@ -56,6 +59,8 @@ public class Quadrate extends View {
 
 
     }
+
+
 
 
     public void  setFill(String backgroundColor, String borderColor){
@@ -74,6 +79,28 @@ public class Quadrate extends View {
         setElevation(0);
         fill = false;
     }
+
+    public void  setFill(String backgroundColor, String borderColor,int pos_y,int pos_x){
+        this.figura = new GradientDrawable();
+        this.figura.setStroke(15,Color.parseColor(borderColor));
+        this.figura.setColor(Color.parseColor(backgroundColor));
+        setBackground(figura);
+        setElevation(15);
+        fill = true;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+    }
+    public void  setEmpty(String backgroundColor, String borderColor,int pos_y,int pos_x){
+        this.figura = new GradientDrawable();
+        this.figura.setStroke(2,Color.parseColor(this.BorderColor));
+        this.figura.setColor(Color.parseColor(this.BackgroundColor));
+        setBackground(figura);
+        setElevation(0);
+        fill = false;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+    }
+
     public void clonate(Quadrate clon){
         this.BackgroundColor = clon.BackgroundColor;
         this.BorderColor = clon.BorderColor;
