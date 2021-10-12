@@ -63,7 +63,7 @@ public class GamePanel{
                     }
                 }
 
-                puntaje.setText(0);
+
             }
         });
 

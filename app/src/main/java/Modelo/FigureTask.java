@@ -146,7 +146,7 @@ public class FigureTask extends AsyncTask<Boolean,Boolean,Boolean> {
                 if(validar_perdio()){
                     publishProgress(false);
                     try {
-                        Thread.sleep(250);
+                        Thread.sleep(450);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
