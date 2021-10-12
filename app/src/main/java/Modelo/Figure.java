@@ -45,8 +45,12 @@ public class Figure {
         BackgroundColor = backgroundColor;
 
     }
-
-
+    final  int __CHOCA__IZQUIERDA = 1;
+    final  int __CHOCA__DERECHA = 2;
+    final  int __CHOCA__ABAJO = 3;
+    final  int __CHOCA__ARRIBA = 4;
+    final  int __CHOCA__CHOCA_ESTRECHO = 5;
+    final  int __CHOCA__COLICION = 4;
 
     public Figure(Context context,String borderColor, String backgroundColor, int figureWidth, int figureHeight) {
         this.context = context;
@@ -90,40 +94,47 @@ public class Figure {
         clearPastMovement(Grid,figure);
         DataFrame =  rotateMatrix(DataFrame);
         ReloadFigure();
+
+
         int condicion = Choca(figure,Grid);
-        System.out.println(condicion);
+
 
         switch (condicion){
-            case 1:
+            case __CHOCA__DERECHA:
                 int x = figure.getDataFrame().length>=4?2:1;
-                if (!ChocaIzquierda(figure, Grid,1)) {
-                    if (!ChocaIzquierda(figure, Grid, x)) {
-                        Xmovemen(figure, -x);
-                        if (Choca(figure, Grid) != 0  || ChocaDerecha(figure,Grid,0)) {
-                            DataFrame = aux.clone();
-                            ReloadFigure();
-                        }
+                if (!ChocaIzquierda(figure, Grid,x)) {
+
+                    Xmovemen(figure, -x);
+                    if (Choca(figure, Grid) != 0) {
+                        DataFrame = aux.clone();
+                        ReloadFigure();
                     }
+
                 }
                 break;
-            case 2:
+            case __CHOCA__IZQUIERDA:
                 x = figure.getDataFrame().length>=4?2:1;
-                if (!ChocaDerecha(figure, Grid,1)){
-                    if (!ChocaDerecha(figure, Grid,x)){
-                        Xmovemen(figure,x);
-                        if (Choca(figure,Grid) != 0 || ChocaIzquierda(figure,Grid,0)){
-                            DataFrame =  aux.clone();
-                            ReloadFigure();
-                        }
+                if (!ChocaDerecha(figure, Grid,x)){
+
+                    Xmovemen(figure,x);
+                    if (Choca(figure,Grid) != 0){
+                        DataFrame =  aux.clone();
+                        ReloadFigure();
                     }
+
                 }
                 break;
-            case 3:
+            case __CHOCA__CHOCA_ESTRECHO:
                 DataFrame =  aux.clone();
                 ReloadFigure();
 
                 break;
-            case 4:
+            case __CHOCA__ABAJO:
+                DataFrame =  aux.clone();
+                ReloadFigure();
+
+                break;
+            case __CHOCA__COLICION:
                 DataFrame =  aux.clone();
                 ReloadFigure();
 
@@ -289,6 +300,7 @@ public class Figure {
                 if(figure.getFrames()[pos][j].isFill()) {
                     int max_y = figure.getFrames()[pos][j].getPos_y();
                     int max_x = figure.getFrames()[pos][j].getPos_x();
+                    if (max_x >= GamePanel[0].length || max_x <0) return true;
                     if (max_y + 1 >= GamePanel.length) return true;
                     if(max_y>=0) {
                         if (GamePanel[max_y + 1][max_x].isFill()  ) return true;
@@ -336,6 +348,34 @@ public class Figure {
     }
 
 
+
+    public boolean Colicion(Figure figure,Quadrate[][] GamePanel){
+
+        for (int i = 0; i < figure.getDataFrame().length; i++) {
+            int Pos = PosicionMasIzquierda(figure,i);
+            if(figure.getFrames()[i][Pos].isFill()) {
+                int max_y = figure.getFrames()[i][Pos].getPos_y();
+                int max_x = figure.getFrames()[i][Pos].getPos_x();
+                if (GamePanel[max_y][max_x-1].isFill()) return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+    public int  Choca(Figure figure,Quadrate[][] Grid)
+    {
+        if(ChocaAbajo(figure,Grid)) return  __CHOCA__ABAJO;
+        if(ChocaIzquierda(figure,Grid,0) && ChocaDerecha(figure,Grid,0)) return  __CHOCA__CHOCA_ESTRECHO;
+        if(ChocaIzquierda(figure,Grid,0)) return __CHOCA__IZQUIERDA;
+        if(ChocaDerecha(figure,Grid,0)) return __CHOCA__DERECHA;
+        if(Colicion(figure,Grid)) return  __CHOCA__COLICION;
+        return  0;
+    }
+
     public int PosicionMasBaja(Figure figure,int j){
         for (int i = figure.getFrames().length-1 ; i >= 0 ; i--) {
             if(figure.getFrames()[i][j].isFill()) return i;
@@ -352,28 +392,7 @@ public class Figure {
 
     public int PosicionMasIzquierda(Figure figure,int i){
         for (int j = 0  ; j < figure.getFrames()[0].length ; j++) {
-           if(figure.getFrames()[i][j].isFill()) return j;
-        }
-        return  0;
-    }
-
-    public int  Choca(Figure figure,Quadrate[][] Grid)
-    {
-
-        for (int i = 0; i < figure.getFrames().length; i++) {
-
-            for (int j = 0; j < figure.getFrames()[0].length; j++) {
-                if(figure.getFrames()[i][j].isFill()){
-
-                    if(figure.getFrames()[i][j].getPos_x()>=Grid[0].length) return 1;
-                    if(figure.getFrames()[i][j].getPos_x() <0 ) return  2;
-                    if(figure.getFrames()[i][j].getPos_y() >= Grid.length) return  3;
-
-                    if(figure.getFrames()[i][j].getPos_y() >= 0 && figure.getFrames()[i][j].getPos_y() < Grid.length && figure.getFrames()[i][j].getPos_x() >= 0 && figure.getFrames()[i][j].getPos_x() < Grid[0].length)
-                    if(Grid[figure.getFrames()[i][j].getPos_y()][figure.getFrames()[i][j].getPos_x()].isFill()) return 4;
-
-                }
-            }
+            if(figure.getFrames()[i][j].isFill()) return j;
         }
         return  0;
     }
