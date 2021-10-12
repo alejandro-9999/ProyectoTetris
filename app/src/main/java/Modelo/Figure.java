@@ -99,7 +99,7 @@ public class Figure {
                 if (!ChocaIzquierda(figure, Grid,1)) {
                     if (!ChocaIzquierda(figure, Grid, x)) {
                         Xmovemen(figure, -x);
-                        if (Choca(figure, Grid) != 0) {
+                        if (Choca(figure, Grid) != 0  || ChocaDerecha(figure,Grid,0)) {
                             DataFrame = aux.clone();
                             ReloadFigure();
                         }
@@ -111,7 +111,7 @@ public class Figure {
                 if (!ChocaDerecha(figure, Grid,1)){
                     if (!ChocaDerecha(figure, Grid,x)){
                         Xmovemen(figure,x);
-                        if (Choca(figure,Grid) != 0){
+                        if (Choca(figure,Grid) != 0 || ChocaIzquierda(figure,Grid,0)){
                             DataFrame =  aux.clone();
                             ReloadFigure();
                         }
