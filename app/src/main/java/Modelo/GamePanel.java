@@ -2,10 +2,11 @@ package Modelo;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.GridLayout;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.gridlayout.widget.GridLayout;
 
 public class GamePanel{
     GradientDrawable figura;
@@ -15,7 +16,7 @@ public class GamePanel{
     TextView puntaje;
     int total;
 
-    public GamePanel(GridLayout GamePanelView, GridLayout ActualFigure, Button bajar, Button derecha,Button izquierda,Button button_reset,TextView puntaje,int total){
+    public GamePanel(GridLayout GamePanelView, GridLayout ActualFigure, Button bajar, Button derecha, Button izquierda, Button button_reset, TextView puntaje, int total){
         this.puntaje = puntaje;
         this.button_reset = button_reset;
         figura = new GradientDrawable();
