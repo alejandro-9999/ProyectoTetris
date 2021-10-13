@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Reset =(Button) findViewById(R.id.reset);
         puntaje = (TextView) findViewById(R.id.puntaje);
         GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar,Derecha,Izquierda,Reset,puntaje,total);
-        FigureTask figureTask = new FigureTask(this,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total);
+        FigureTask figureTask = new FigureTask(this,GamePanelView,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total);
 
         figureTask.execute(true);
 

@@ -1,3 +1,4 @@
+
 package Modelo;
 
 import android.content.Context;
@@ -236,6 +237,7 @@ public class Figure {
         }
     }
 
+
     public void Bajar(Quadrate[][] Grid,Figure figure){
         if(figure.getStoped_time() != 3) {
 
@@ -278,6 +280,7 @@ public class Figure {
     public void Derecha(Quadrate[][] Grid, Figure figure){
         if (!ChocaDerecha(figure, Grid,1)){
             clearPastMovement(Grid,figure);
+            clearPastMovement(Grid,figure);
             Xmovemen(figure,1);
             MakeMovement(Grid,figure);
         }
@@ -285,6 +288,7 @@ public class Figure {
 
     public void Izquierda(Quadrate[][] Grid, Figure figure){
         if(!ChocaIzquierda(figure, Grid,1)) {
+            clearPastMovement(Grid,figure);
             clearPastMovement(Grid,figure);
             Xmovemen(figure,-1);
             MakeMovement(Grid,figure);
@@ -295,18 +299,18 @@ public class Figure {
     public boolean ChocaAbajo(Figure figure,Quadrate[][] GamePanel){
 
 
-            for (int j = 0; j < figure.getDataFrame()[0].length; j++) {
-                int pos = PosicionMasBaja(figure,j);
-                if(figure.getFrames()[pos][j].isFill()) {
-                    int max_y = figure.getFrames()[pos][j].getPos_y();
-                    int max_x = figure.getFrames()[pos][j].getPos_x();
-                    if (max_x >= GamePanel[0].length || max_x <0) return true;
-                    if (max_y + 1 >= GamePanel.length) return true;
-                    if(max_y>=0) {
-                        if (GamePanel[max_y + 1][max_x].isFill()  ) return true;
-                    }
+        for (int j = 0; j < figure.getDataFrame()[0].length; j++) {
+            int pos = PosicionMasBaja(figure,j);
+            if(figure.getFrames()[pos][j].isFill()) {
+                int max_y = figure.getFrames()[pos][j].getPos_y();
+                int max_x = figure.getFrames()[pos][j].getPos_x();
+                if (max_x >= GamePanel[0].length || max_x <0) return true;
+                if (max_y + 1 >= GamePanel.length) return true;
+                if(max_y>=0) {
+                    if (GamePanel[max_y + 1][max_x].isFill()  ) return true;
                 }
             }
+        }
 
         return false;
     }
@@ -397,9 +401,4 @@ public class Figure {
         return  0;
     }
 }
-
-
-
-
-
 

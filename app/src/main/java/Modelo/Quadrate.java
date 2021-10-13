@@ -46,33 +46,32 @@ public class Quadrate extends View {
         BorderColor = borderColor;
         this.pos_x = pos_x;
         this.pos_y = pos_y;
-
+        fill = false;
     }
     public Quadrate(Context context) {
         super(context);
+        fill = false;
     };
-
-    public Quadrate(String backgroundColor, String borderColor,Context context) {
-        super(context);
-        BackgroundColor = backgroundColor;
-        BorderColor = borderColor;
-
-
-    }
 
 
 
 
     public void  setFill(String backgroundColor, String borderColor){
         this.figura = new GradientDrawable();
-        this.figura.setStroke(15,Color.parseColor(borderColor));
-        this.figura.setColor(Color.parseColor(backgroundColor));
+
+        this.setBackgroundColor(backgroundColor);
+        this.setBorderColor(borderColor);
+        this.figura.setStroke(15,Color.parseColor(this.BorderColor));
+        this.figura.setColor(Color.parseColor(this.BackgroundColor));
         setBackground(figura);
         setElevation(15);
         fill = true;
     }
     public void  setEmpty(String backgroundColor, String borderColor){
         this.figura = new GradientDrawable();
+
+        this.setBackgroundColor(backgroundColor);
+        this.setBorderColor(borderColor);
         this.figura.setStroke(2,Color.parseColor(this.BorderColor));
         this.figura.setColor(Color.parseColor(this.BackgroundColor));
         setBackground(figura);
@@ -84,6 +83,8 @@ public class Quadrate extends View {
         this.figura = new GradientDrawable();
         this.figura.setStroke(15,Color.parseColor(borderColor));
         this.figura.setColor(Color.parseColor(backgroundColor));
+        this.setBackgroundColor(backgroundColor);
+        this.setBorderColor(borderColor);
         setBackground(figura);
         setElevation(15);
         fill = true;
@@ -94,6 +95,8 @@ public class Quadrate extends View {
         this.figura = new GradientDrawable();
         this.figura.setStroke(2,Color.parseColor(this.BorderColor));
         this.figura.setColor(Color.parseColor(this.BackgroundColor));
+        this.setBackgroundColor(backgroundColor);
+        this.setBorderColor(borderColor);
         setBackground(figura);
         setElevation(0);
         fill = false;

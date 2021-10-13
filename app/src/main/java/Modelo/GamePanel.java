@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class GamePanel{
     GradientDrawable figura;
     Figure GameFigure;
-    HiloFigura hiloFigura;
     Quadrate[][] Grid;
     Button button_reset;
     TextView puntaje;
@@ -51,21 +50,21 @@ public class GamePanel{
             }
         }
 
-        button_reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GamePanelView.removeAllViews();
-                for (int i = 0; i < 20; i++) {
-                    for (int j = 0; j < 10; j++) {
-                        Grid[i][j] = new Quadrate(GamePanelView.getContext(),"#c7f9cc","#57cc99",CuadradoWidth,CuadradoHeight);
-                        GamePanelView.addView(Grid[i][j]);
-                        Grid[i][j].setEmpty("#c7f9cc","#57cc99");
-                    }
-                }
-
-
-            }
-        });
+//        button_reset.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                GamePanelView.removeAllViews();
+//                for (int i = 0; i < 20; i++) {
+//                    for (int j = 0; j < 10; j++) {
+//                        Grid[i][j] = new Quadrate(GamePanelView.getContext(),"#c7f9cc","#57cc99",CuadradoWidth,CuadradoHeight);
+//                        GamePanelView.addView(Grid[i][j]);
+//                        Grid[i][j].setEmpty("#c7f9cc","#57cc99");
+//                    }
+//                }
+//
+//
+//            }
+//        });
 
     }
 
@@ -86,13 +85,6 @@ public class GamePanel{
         GameFigure = gameFigure;
     }
 
-    public HiloFigura getHiloFigura() {
-        return hiloFigura;
-    }
-
-    public void setHiloFigura(HiloFigura hiloFigura) {
-        this.hiloFigura = hiloFigura;
-    }
 
     public Quadrate[][] getGrid() {
         return Grid;
