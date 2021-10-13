@@ -126,7 +126,7 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
     protected void onPreExecute() {
         figure = null;
         figure = RandomFigure();
-
+        this.Rotar.setEnabled(false);
         LoadActualFigure(ActualFigure,figure);
 
     }
@@ -152,8 +152,7 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         Rotar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                figure.Rotar90(Grid,figure);
-                System.out.println("ESTA ROTANDO");
+                SingletonFirebase.getInstance().UsarPoder(Players_list,player,code_game);
             }
         });
         button_reset.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +174,10 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     String user  = (String) snapshot.child("user").getValue();
                     Long lo = snapshot.child("puntos").getValue()!=null? (long) snapshot.child("puntos").getValue():0;
+                    Long power = snapshot.child("puntos").getValue()!=null? (long) snapshot.child("power").getValue():0;
+                    if(player.getUser().equals(user)){
+                        player = new player(user,lo.intValue(),power.intValue());
+                    }
                    Players_list.add(new player(user,lo.intValue()));
                 }
                 onProgressUpdate("print_players");
@@ -255,6 +258,8 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
 
     @Override
     protected void onProgressUpdate(String... values) {
+        this.Rotar.setEnabled(player.getPower()>0);
+
         try {
 
 
@@ -307,10 +312,12 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         player_listView.setText("Jugadores");
 
         Collections.sort(Players_list,new PlayerOrder());
-
+        int i = 1;
         for(player player : Players_list){
-            player_listView.append("\n"+player.getUser()+" : "+player.getPuntos());
+            player_listView.append("\n"+i+"." +player.getUser()+" : "+player.getPuntos());
+            i++;
         }
+
     }
 
     public Quadrate[][] LoadActualFigure(GridLayout ActualFigure, Figure figure){
@@ -408,8 +415,11 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         if(total_l>0) {
             puntos += factorial(total_l);
             player.setPuntos(puntos);
+            if(puntos >= 3) player.setPower(player.getPower()+1);
             SingletonFirebase.getInstance().GuardarPlayer(player,this.code_game);
+
             publishProgress("puntaje");
+
         }
     }
 
