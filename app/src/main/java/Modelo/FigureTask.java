@@ -29,12 +29,12 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
     GridLayout GamePanelView;
     int puntos;
     private float x2,x1,y2,y1;
-    boolean perdio =  false;
-
+    boolean perdio =  true;
+    player player;
 
     int total;
 
-    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total) {
+    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total,String name_user) {
         this.total = total;
         this.puntaje = puntaje;
         this.figure = figure;
@@ -48,6 +48,9 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         this.button_reset = button_reset;
         puntos = 0;
         this.context = context;
+        player = new player(name_user,0);
+        SingletonFirebase.getInstance().GuardarPlayer(player);
+        System.out.println("NOMBRE =>"+ name_user);
     }
     private void soltarPantalla(float x, float y) {
         this.x2= x;
@@ -140,6 +143,8 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
                 figure = RandomFigure();
                 Reset();
                 perdio = !perdio;
+                puntos = 0;
+                puntaje.setText(""+0);
             }
         });
 
@@ -385,6 +390,8 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         }
         return n * factorial(n - 1);
     }
+
+
 
 
 }
