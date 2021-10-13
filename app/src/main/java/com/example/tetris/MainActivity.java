@@ -72,9 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     public  String pedir_nombre(Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Title");
+        builder.setTitle("Nombre");
 
         final String[] salida = {"Salida"};
         final EditText input = new EditText(this);
@@ -85,14 +88,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
-                if(!m_Text.equals("") && !m_Text.isEmpty()){
+                if(!m_Text.equals("") && !m_Text.isEmpty() ){
+                    pedir_codigo(context,m_Text);
+                }else{
+                    pedir_nombre(context);
+                }
+            }
+        });
+
+        builder.show();
+        return  salida[0];
+    }
+
+
+    public  String pedir_codigo(Context context,String name){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Codigo");
+
+        final String[] salida = {"Salida"};
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String m_Text = input.getText().toString();
+                if(!m_Text.equals("") && !m_Text.isEmpty() ){
                     GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar,Derecha,Izquierda,Reset,puntaje,total);
                     hilo_logica = new FigureTask
-                            (context,GamePanelView,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total,m_Text,player_list);
+                            (context,GamePanelView,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total,name,player_list,m_Text);
 
                     hilo_logica.execute(true);
                 }else{
-                    pedir_nombre(context);
+                    pedir_codigo(context,name);
                 }
             }
         });

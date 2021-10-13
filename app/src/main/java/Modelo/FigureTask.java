@@ -44,8 +44,11 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
     TextView player_listView;
     int total;
     DatabaseReference PlayersReference;
+    String code_game;
 
-    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total,String name_user,TextView player_list) {
+    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid,
+                      GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,
+                      TextView puntaje,int total,String name_user,TextView player_list,String code_game) {
         this.total = total;
         this.puntaje = puntaje;
         this.figure = figure;
@@ -60,11 +63,12 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         puntos = 0;
         this.context = context;
         player = new player(name_user,0);
-        SingletonFirebase.getInstance().GuardarPlayer(player);
+        this.code_game = code_game;
+        SingletonFirebase.getInstance().GuardarPlayer(player,this.code_game);
         System.out.println("NOMBRE =>"+ name_user);
         Players_list = new ArrayList<>();
         player_listView = player_list;
-        PlayersReference = FirebaseDatabase.getInstance().getReference("Players");
+        PlayersReference = FirebaseDatabase.getInstance().getReference("Games").child(code_game).child("Players");
     }
     private void soltarPantalla(float x, float y) {
         this.x2= x;
@@ -160,7 +164,7 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
                 puntos = 0;
                 puntaje.setText(""+0);
                 player.setPuntos(puntos);
-                SingletonFirebase.getInstance().GuardarPlayer(player);
+                SingletonFirebase.getInstance().GuardarPlayer(player,code_game);
             }
         });
         PlayersReference.addValueEventListener(new ValueEventListener() {
@@ -400,7 +404,7 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         if(total_l>0) {
             puntos += factorial(total_l);
             player.setPuntos(puntos);
-            SingletonFirebase.getInstance().GuardarPlayer(player);
+            SingletonFirebase.getInstance().GuardarPlayer(player,this.code_game);
             publishProgress("puntaje");
         }
     }

@@ -13,7 +13,7 @@ public class SingletonFirebase {
     public SingletonFirebase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
-    public  void GuardarPlayer(player player){
-        this.mDatabase.child("Players").child(player.getUser()).setValue(player);
+    public  void GuardarPlayer(player player,String code_game){
+        this.mDatabase.child("Games").child(code_game).child("Players").child(player.getUser()).setValue(player);
     }
 }
