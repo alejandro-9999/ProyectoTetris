@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
@@ -304,6 +305,9 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
 
     private void PrintJugadores() {
         player_listView.setText("Jugadores");
+
+        Collections.sort(Players_list,new PlayerOrder());
+
         for(player player : Players_list){
             player_listView.append("\n"+player.getUser()+" : "+player.getPuntos());
         }
