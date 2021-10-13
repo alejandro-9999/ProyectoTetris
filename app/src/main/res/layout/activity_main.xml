@@ -16,16 +16,16 @@
         android:layout_width="250dp"
         android:layout_height="500dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069">
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.gridlayout.widget.GridLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="95dp"
-        android:layout_height="500dp"
+        android:id="@+id/constraintLayout"
+        android:layout_width="120dp"
+        android:layout_height="502dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.34"
@@ -64,52 +64,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/rotar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/bdercha"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.985"
-            tools:text="rotar" />
-
-        <Button
-            android:id="@+id/bdercha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/bizquierda"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Derecha" />
-
-        <Button
-            android:id="@+id/bizquierda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="176dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Izquierda" />
-
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="INICIAR"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bizquierda"
-            app:layout_constraintVertical_bias="0.265"
-            tools:text="INICIAR" />
-
 
         <TextView
             android:id="@+id/puntaje"
@@ -121,12 +75,80 @@
             android:text="0"
             android:textColor="#FFC107"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/rotar"
+            app:layout_constraintBottom_toTopOf="@+id/player_list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintHorizontal_bias="0.179"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.042" />
+
+        <TextView
+            android:id="@+id/player_list"
+            android:layout_width="103dp"
+            android:layout_height="96dp"
+            android:shadowColor="#FA0000"
+            android:text="Jugadores"
+            android:textColor="#E91E63"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.157" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="409dp"
+        android:layout_height="146dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GamePanel">
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="INICIAR"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="INICIAR" />
+
+        <Button
+            android:id="@+id/bdercha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reset"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Derecha" />
+
+        <Button
+            android:id="@+id/rotar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bdercha"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="rotar" />
+
+        <Button
+            android:id="@+id/bizquierda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toEndOf="@+id/rotar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Izquierda" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

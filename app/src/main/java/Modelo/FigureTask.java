@@ -11,8 +11,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.gridlayout.widget.GridLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
@@ -26,15 +34,18 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
     Context context;
     Button button_reset;
     TextView puntaje;
+    TextView player_list;
     GridLayout GamePanelView;
     int puntos;
     private float x2,x1,y2,y1;
     boolean perdio =  true;
     player player;
-
+    ArrayList<player> Players_list;
+    TextView player_listView;
     int total;
+    DatabaseReference PlayersReference;
 
-    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total,String name_user) {
+    public FigureTask(Context context,GridLayout GamePanelView,Figure figure, Quadrate[][] grid, GridLayout actualFigure, Button derecha, Button izquierda, Button rotar,Button button_reset,TextView puntaje,int total,String name_user,TextView player_list) {
         this.total = total;
         this.puntaje = puntaje;
         this.figure = figure;
@@ -51,6 +62,9 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
         player = new player(name_user,0);
         SingletonFirebase.getInstance().GuardarPlayer(player);
         System.out.println("NOMBRE =>"+ name_user);
+        Players_list = new ArrayList<>();
+        player_listView = player_list;
+        PlayersReference = FirebaseDatabase.getInstance().getReference("Players");
     }
     private void soltarPantalla(float x, float y) {
         this.x2= x;
@@ -145,6 +159,25 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
                 perdio = !perdio;
                 puntos = 0;
                 puntaje.setText(""+0);
+                player.setPuntos(puntos);
+                SingletonFirebase.getInstance().GuardarPlayer(player);
+            }
+        });
+        PlayersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Players_list.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String user  = (String) snapshot.child("user").getValue();
+                    Long lo = snapshot.child("puntos").getValue()!=null? (long) snapshot.child("puntos").getValue():0;
+                   Players_list.add(new player(user,lo.intValue()));
+                }
+                onProgressUpdate("print_players");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -255,12 +288,21 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
             else if(values[0].equals("bajar_normal")){
                 figure.Bajar(Grid, figure);
             }
-
+            else  if(values[0].equals("print_players")){
+                PrintJugadores();
+            }
 
         }catch (Exception e){
 
         }
 
+    }
+
+    private void PrintJugadores() {
+        player_listView.setText("Jugadores");
+        for(player player : Players_list){
+            player_listView.append("\n"+player.getUser()+" : "+player.getPuntos());
+        }
     }
 
     public Quadrate[][] LoadActualFigure(GridLayout ActualFigure, Figure figure){
@@ -357,6 +399,8 @@ public class FigureTask extends AsyncTask<Boolean,String,Boolean> {
 
         if(total_l>0) {
             puntos += factorial(total_l);
+            player.setPuntos(puntos);
+            SingletonFirebase.getInstance().GuardarPlayer(player);
             publishProgress("puntaje");
         }
     }

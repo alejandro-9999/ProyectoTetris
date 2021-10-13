@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private Button Izquierda;
     private Button Reset;
     private TextView puntaje;
+    private TextView player_list;
     int total = 0;
     FigureTask hilo_logica;
-    private String  NombrePlayer = "Anonimo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         Izquierda = (Button) findViewById(R.id.bizquierda);
         Reset =(Button) findViewById(R.id.reset);
         puntaje = (TextView) findViewById(R.id.puntaje);
-
+        player_list = (TextView) findViewById(R.id.player_list);
 
 
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!m_Text.equals("") && !m_Text.isEmpty()){
                     GamePanel panelGame = new GamePanel(GamePanelView,ActualFigure,Bajar,Derecha,Izquierda,Reset,puntaje,total);
                     hilo_logica = new FigureTask
-                            (context,GamePanelView,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total,m_Text);
+                            (context,GamePanelView,new Figure(ActualFigure.getContext()),panelGame.getGrid(),ActualFigure,Derecha,Izquierda,Bajar,Reset,puntaje,total,m_Text,player_list);
 
                     hilo_logica.execute(true);
                 }else{
